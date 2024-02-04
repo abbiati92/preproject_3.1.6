@@ -53,7 +53,6 @@ public class SiteServiceImpl implements SiteService{
 
     @Override
     public void saveUser() {
-        System.out.println("Переданный в save:" + getSessionId());
         SiteInfo user = new SiteInfo();
         user.setId(3L);
         user.setName("James");
@@ -73,28 +72,7 @@ public class SiteServiceImpl implements SiteService{
                 request,
                 String.class
         );
-
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("Пользователь успешно сохранен");
-            //Проверяем появился ли сохраненный юзер
-            HttpHeaders getHeaders = new HttpHeaders();
-            getHeaders.set("Cookie", getSessionId());
-            HttpEntity<Void> getRequest = new HttpEntity<>(getHeaders);
-            ResponseEntity<List<SiteInfo>> getUsersResponse = restTemplate.exchange(
-                    serverUrl + "/api/users",
-                    HttpMethod.GET,
-                    getRequest,
-                    new ParameterizedTypeReference<List<SiteInfo>>() {}
-            );
-            List<SiteInfo> use = getUsersResponse.getBody();
-            // Выводим полученных пользователей
-            for (SiteInfo userInfo : use) {
-                System.out.println(userInfo.toString());
-            }
-        } else {
-            System.out.println("Ошибка при сохранении пользователя");
-        }
+        System.out.println(response.getBody());
     }
 
     @Override
@@ -116,27 +94,7 @@ public class SiteServiceImpl implements SiteService{
                 request,
                 String.class
         );
-        //Проверка
-        if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("Пользователь успешно изменен");
-            //Проверяем изменился ли юзер
-            HttpHeaders getHeaders = new HttpHeaders();
-            getHeaders.set("Cookie", getSessionId());
-            HttpEntity<Void> getRequest = new HttpEntity<>(getHeaders);
-            ResponseEntity<List<SiteInfo>> getUsersResponse = restTemplate.exchange(
-                    serverUrl + "/api/users",
-                    HttpMethod.GET,
-                    getRequest,
-                    new ParameterizedTypeReference<List<SiteInfo>>() {}
-            );
-            List<SiteInfo> use = getUsersResponse.getBody();
-            // Выводим полученных пользователей
-            for (SiteInfo userInfo : use) {
-                System.out.println(userInfo.toString());
-            }
-        } else {
-            System.out.println("Ошибка при изменении пользователя");
-        }
+        System.out.println(response.getBody());
     }
 
     public void deleteUser() {
@@ -152,25 +110,6 @@ public class SiteServiceImpl implements SiteService{
                 request,
                 String.class
         );
-        if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("Пользователь успешно удален");
-            //Проверяем появился ли сохраненный юзер
-            HttpHeaders getHeaders = new HttpHeaders();
-            getHeaders.set("Cookie", getSessionId());
-            HttpEntity<Void> getRequest = new HttpEntity<>(getHeaders);
-            ResponseEntity<List<SiteInfo>> getUsersResponse = restTemplate.exchange(
-                    serverUrl + "/api/users",
-                    HttpMethod.GET,
-                    getRequest,
-                    new ParameterizedTypeReference<List<SiteInfo>>() {}
-            );
-            List<SiteInfo> use = getUsersResponse.getBody();
-            // Выводим полученных пользователей
-            for (SiteInfo userInfo : use) {
-                System.out.println(userInfo.toString());
-            }
-        } else {
-            System.out.println("Ошибка при удалении пользователя");
-        }
+        System.out.println(response.getBody());
     }
 }
